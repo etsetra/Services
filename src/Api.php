@@ -97,7 +97,7 @@ class Api
      * @param array $params
      * @return $array
      */
-    public function earthquake(array $params)
+    public function earthquake(array $params = [])
     {
         $http = Http::get('http://www.koeri.boun.edu.tr/scripts/lst0.asp');
 
