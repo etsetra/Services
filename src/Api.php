@@ -77,7 +77,7 @@ class Api
                         ];
                     }
 
-                    $data = Arr::where($data, function ($value, $key) use ($symbols) { return Str::contains($key, $symbols); });
+                    $data = Arr::where($data, function ($value, $key) use ($symbols) { return in_array($key, $symbols); });
 
                     return $data;
                 }
@@ -111,30 +111,31 @@ class Api
             {
                 $lines = explode(PHP_EOL, $match);
 
-                $lines = array_map(function($line) use ($params) {
+                $keys = [
+                    'tarih',
+                    'enlem',
+                    'boylam',
+                    'derinlik',
+                    'md',
+                    'ml',
+                    'mw',
+                    'yer',
+                    'cozum_niteligi',
+                    'diger'
+                ];
+
+                $lines = array_map(function($line) use ($params, $keys) {
                     $line = preg_replace(array('/\s{2,}/', '/[\t\n]/'), '_____', $line);
+
                     $cols = explode('_____', $line);
 
                     if (count($cols) >= 9)
                     {
                         $arr = [];
 
-                        $keys = [
-                            'tarih',
-                            'enlem',
-                            'boylam',
-                            'derinlik',
-                            'md',
-                            'ml',
-                            'mw',
-                            'yer',
-                            'cozum_niteligi',
-                            'diger'
-                        ];
-
                         foreach ($cols as $key => $col)
                         {
-                            if (@$params[$keys[$key]])
+                            if (in_array($keys[$key], $params))
                                 $arr[$keys[$key]] = $col;
                         }
 
