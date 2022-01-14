@@ -15,22 +15,26 @@
     composer require etsetra/services
 
 1. Aşağıdaki kodu **config/services.php** dosyasına ekleyin
-
-    >> 'freecurrencyapi' => [
-    >>     'apikey' => env('FREECURRENCYAPI_APIKEY')
-    >> ],
-
+<pre>
+'freecurrencyapi' => [
+    'apikey' => env('FREECURRENCYAPI_APIKEY')
+],
+</pre>
 
 2. **freecurrenkapi.net** üzerinden bir api key alın
-    FREECURRENCYAPI_APIKEY=
+<pre>
+FREECURRENCYAPI_APIKEY=
+</pre>
 
 3. Problem mesajları için gerekli loglar **storage/logs/services.log** dosyasına yazılır. Bunun için **config/logging.php** dosyasındaki **channels** dizesinin altına şu kodu ekleyin
-    >> 'channels' => [
-    >> ...
-    >>     'services' => [
-    >>         'driver' => 'single',
-    >>         'path' => storage_path('logs/services.log'),
-    >>         'level' => env('LOG_LEVEL', 'debug'),
-    >>     ],
-    >> ...
-    >> ]
+<pre>
+'channels' => [
+...
+    'services' => [
+        'driver' => 'single',
+        'path' => storage_path('logs/services.log'),
+        'level' => env('LOG_LEVEL', 'debug'),
+    ],
+...
+]
+</pre>
