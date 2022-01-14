@@ -1,0 +1,21 @@
+{
+    "name": "etsetra/services",
+    "type": "library",
+    "require": {
+        "php": "^8.0",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/framework": "^8.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Etsetra\\Services\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mutlu",
+            "email": "mutlu@etsetra.com"
+        }
+    ]
+}
