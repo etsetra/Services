@@ -259,7 +259,7 @@ class Api
     /**
      * Diyanet'ten ezan vakitlerini alır.
      * 
-     * @param
+     * @param string $city
      * @return array
      */
     public function ezan(string $city = null)
