@@ -134,7 +134,7 @@ class Api
                 return $this->log('freecurrencyapi.net/api/v2/latest sayfasındaki json formatı değişmiş olabilir.');
         }
         else
-            return $this->log('freecurrencyapi.net/api/v2/latest sayfasıyla bağlantı kurulamadı.');
+            return $this->log('freecurrencyapi.net/api/v2/latest sayfasına bağlanılamıyor.');
     }
 
     /**
@@ -186,7 +186,7 @@ class Api
                 return $this->log('bigpara.hurriyet.com.tr/altin/ sayfasının yapısı değişmiş olabilir.');
         }
         else
-            return $this->log('bigpara.hurriyet.com.tr/altin/ sayfasıyla bağlantı kurulamadı.');
+            return $this->log('bigpara.hurriyet.com.tr/altin/ sayfasına bağlanılamıyor.');
     }
 
     /**
@@ -253,7 +253,7 @@ class Api
                 return $this->log('koeri.boun.edu.tr sayfasındaki dom formatı değişmiş olabilir.');
         }
         else
-            return $this->log('koeri.boun.edu.tr sayfasıyla bağlantı kurulamadı.');
+            return $this->log('koeri.boun.edu.tr sayfasına bağlanılamıyor.');
     }
 
     /**
@@ -345,6 +345,58 @@ class Api
         }
 
         return $data;
+    }
+
+    /**
+     * Sağlık bakanlığından covid19 verilerini alır.
+     * 
+     * @return array
+     */
+    public function covid19()
+    {
+        $http = Http::get('https://covid19.saglik.gov.tr/');
+
+        if ($http->successful())
+        {
+            try
+            {
+                $daily = json_decode(Str::between($http->body(), 'var sondurumjson = [', '];var'));
+                $weekly = json_decode(Str::between($http->body(), 'var haftalikdurumjson = [', '];'));
+
+                return [
+                    'daily' => [
+                        'date' => $daily->tarih,
+                        'test' => str_replace('.', '', $daily->gunluk_test),
+                        'case' => str_replace('.', '', $daily->gunluk_vaka),
+                        'death' => str_replace('.', '', $daily->gunluk_vefat),
+                        'recovered' => str_replace('.', '', $daily->gunluk_iyilesen),
+                    ],
+                    'weekly' => [
+                        'date' => $weekly->tarih,
+                        'test' => str_replace('.', '', $weekly->test_sayisi),
+                        'case' => str_replace('.', '', $weekly->vaka_sayisi),
+                        'patients' => str_replace('.', '', $weekly->hasta_sayisi),
+                        'death' => str_replace('.', '', $weekly->vefat_sayisi),
+                        'recovered' => str_replace('.', '', $weekly->iyilesen_sayisi),
+                    ],
+                    'total' => [
+                        'case' => str_replace('.', '', $weekly->toplam_vaka_sayisi),
+                        'death' => str_replace('.', '', $weekly->toplam_vefat_sayisi),
+                        'seriously_patients_avg' => $weekly->ortalama_agir_hasta_sayisi,
+                        'pneumonia_rate' => $weekly->hastalarda_zaturre_oran,
+                        'bed_occupancy_rate' => $weekly->yatak_doluluk_orani,
+                        'intensive_care_occupancy_rate' => $weekly->eriskin_yogun_bakim_doluluk_orani,
+                        'ventilator_occupancy_rate' => $weekly->ventilator_doluluk_orani,
+                    ]
+                ];
+            }
+            catch (\Exception $e)
+            {
+                return $this->log('covid19.saglik.gov.tr - '.$e->getMessage());
+            }
+        }
+        else
+            return $this->log('covid19.saglik.gov.tr sayfasına bağlanılamıyor.');
     }
 
     /**

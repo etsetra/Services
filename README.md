@@ -3,13 +3,14 @@
 ## Bu kütüphanede **Turkey** için geçerli bazı veri servisleri vardır.
 
 ## İçerdiği servisler (1.0.0)
-| Servis Adı      | Kaynak                        | Api?  | Key gerekiyor?   |
-|-----------------|-------------------------------|-------|------------------|
-| Döviz kuru      | freecurrencyapi.net           | Evet  | Evet             |
-| Altın kuru      | bigpara.hurriyet.com.tr       | Hayır | Hayır            |
-| Deprem verisi   | koeri.boun.edu.tr             | Hayır | Hayır            |
-| Namaz vakitleri | namazvakitleri.diyanet.gov.tr | Hayır | Hayır            |
-| Hava durumu     | openweathermap.org            | Evet  | Evet             |
+| Servis Adı       | Kaynak                        | Api?  | Key gerekiyor?   |
+|------------------|-------------------------------|-------|------------------|
+| Döviz kuru       | freecurrencyapi.net           | Evet  | Evet             |
+| Altın kuru       | bigpara.hurriyet.com.tr       | Hayır | Hayır            |
+| Deprem verisi    | koeri.boun.edu.tr             | Hayır | Hayır            |
+| Namaz vakitleri  | namazvakitleri.diyanet.gov.tr | Hayır | Hayır            |
+| Hava durumu      | openweathermap.org            | Evet  | Evet             |
+| Covid19 verileri | covid19.saglik.gov.tr         | Hayır | Hayır            |
 
 `Bu servislere sürekli istek atmanız durumunda ip engeli veya istek limitiyle karşılaşabilirsiniz. Bu nedenle bir görev zamanlayarak mümkün olduğunca az sayıda istek gönderin. Zamanladığınız görevin elde ettiği verileri bir yerde saklayarak kullanıcılarınıza kendi veri tabanınızdan servis edin.`
 
@@ -260,5 +261,46 @@ OPENWEATHERMAP_API_KEY=
                 [cod] => 200
             )
         ...
+    )
+</pre>
+
+### Covid19
+<pre>
+    use Etsetra\Services\Api;
+
+    $covid19 = (new Api)->covid19();
+
+    Array
+    (
+        [daily] => Array
+            (
+                [date] => 14.01.2022
+                [test] => 392438
+                [case] => 67857
+                [death] => 167
+                [recovered] => 56256
+            )
+
+        [weekly] => Array
+            (
+                [date] => 10 - 16 TEMMUZ 2021
+                [test] => 1608670
+                [case] => 43609
+                [patients] => 3748
+                [death] => 295
+                [recovered] => 36377
+            )
+
+        [total] => Array
+            (
+                [case] => 5514373
+                [death] => 50450
+                [seriously_patients_avg] => 552
+                [pneumonia_rate] => 4.7
+                [bed_occupancy_rate] => 48.9
+                [intensive_care_occupancy_rate] => 62.1
+                [ventilator_occupancy_rate] => 26.3
+            )
+
     )
 </pre>
