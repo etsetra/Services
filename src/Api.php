@@ -134,7 +134,7 @@ class Api
                 return $this->log('freecurrencyapi.net/api/v2/latest json formatı değişmiş olabilir.');
         }
         else
-            return $this->log('freecurrencyapi.net/api/v2/latest sayfasına bağlanılamıyor.');
+            return $this->log('freecurrencyapi.net/api/v2/latest bağlantısı kurulamadı.');
     }
 
     /**
@@ -186,7 +186,7 @@ class Api
                 return $this->log('bigpara.hurriyet.com.tr/altin/ sayfasının yapısı değişmiş olabilir.');
         }
         else
-            return $this->log('bigpara.hurriyet.com.tr/altin/ sayfasına bağlanılamıyor.');
+            return $this->log('bigpara.hurriyet.com.tr/altin/ bağlantısı kurulamadı.');
     }
 
     /**
@@ -253,7 +253,7 @@ class Api
                 return $this->log('koeri.boun.edu.tr dom formatı değişmiş olabilir.');
         }
         else
-            return $this->log('koeri.boun.edu.tr sayfasına bağlanılamıyor.');
+            return $this->log('koeri.boun.edu.tr bağlantısı kurulamadı.');
     }
 
     /**
@@ -396,7 +396,7 @@ class Api
             }
         }
         else
-            return $this->log('covid19.saglik.gov.tr sayfasına bağlanılamıyor.');
+            return $this->log('covid19.saglik.gov.tr bağlantısı kurulamadı.');
     }
 
     /**
@@ -431,7 +431,7 @@ class Api
                 return $this->log('gazeteoku.com dom formatı değişmiş olabilir.');
         }
         else
-            return $this->log('gazeteoku.com sayfasına bağlanılamıyor.');
+            return $this->log('gazeteoku.com bağlantısı kurulamadı.');
     }
 
     /**
