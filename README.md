@@ -9,6 +9,7 @@
 | Altın kuru      | bigpara.hurriyet.com.tr       | Hayır | Hayır            |
 | Deprem verisi   | koeri.boun.edu.tr             | Hayır | Hayır            |
 | Namaz vakitleri | namazvakitleri.diyanet.gov.tr | Hayır | Hayır            |
+| Hava durumu     | openweathermap.org            | Evet  | Evet             |
 
 `Bu servislere sürekli istek atmanız durumunda ip engeli veya istek limitiyle karşılaşabilirsiniz. Bu nedenle bir görev zamanlayarak mümkün olduğunca az sayıda istek gönderin. Zamanladığınız görevin elde ettiği verileri bir yerde saklayarak kullanıcılarınıza kendi veri tabanınızdan servis edin.`
 
