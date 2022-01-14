@@ -420,7 +420,7 @@ class Api
                 $data = array_map(function($item) {
                     return [
                         'name' => $item['title'],
-                        'image_src' => 'https://i.gazeteoku.com/storage/'.Str::after($item['img'][0]['data-src'], 'storage'),
+                        'image_src' => 'https://i.gazeteoku.com/storage/'.Str::after($item['img'][0]['data-src'], 'storage/'),
                         'source' => $item['href']
                     ];
                 }, $items);
