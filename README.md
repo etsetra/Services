@@ -11,6 +11,7 @@
 | Namaz vakitleri  | namazvakitleri.diyanet.gov.tr | Hayır | Hayır            |
 | Hava durumu      | openweathermap.org            | Evet  | Evet             |
 | Covid19 verileri | covid19.saglik.gov.tr         | Hayır | Hayır            |
+| Gazete sayfaları | gazeteoku.com                 | Hayır | Hayır            |
 
 `Bu servislere sürekli istek atmanız durumunda ip engeli veya istek limitiyle karşılaşabilirsiniz. Bu nedenle bir görev zamanlayarak mümkün olduğunca az sayıda istek gönderin. Zamanladığınız görevin elde ettiği verileri bir yerde saklayarak kullanıcılarınıza kendi veri tabanınızdan servis edin.`
 
@@ -302,5 +303,30 @@ OPENWEATHERMAP_API_KEY=
                 [ventilator_occupancy_rate] => 26.3
             )
 
+    )
+</pre>
+
+### Gazete sayfaları
+<pre>
+    use Etsetra\Services\Api;
+
+    $newspapers = (new Api)->newspapers('2022-01-15');
+
+    Array
+    (
+        [0] => Array
+            (
+                [name] => Cumhuriyet
+                [image_src] => https://i.gazeteoku.com/storage//files/images/2022/01/15/cumhuriyet-2022-01-15-VrdZ.jpg
+                [link] => https://www.gazeteoku.com/gazeteler/2022-01-15/cumhuriyet-gazetesi-manseti
+            )
+
+        [1] => Array
+            (
+                [name] => Yeni Şafak
+                [image_src] => https://i.gazeteoku.com/storage//files/images/2022/01/15/yeni-safak-2022-01-15-YpiB.jpg
+                [link] => https://www.gazeteoku.com/gazeteler/2022-01-15/yeni-safak-gazetesi-manseti
+            )
+        ...
     )
 </pre>

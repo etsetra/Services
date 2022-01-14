@@ -131,7 +131,7 @@ class Api
                 return $data;
             }
             else
-                return $this->log('freecurrencyapi.net/api/v2/latest sayfasındaki json formatı değişmiş olabilir.');
+                return $this->log('freecurrencyapi.net/api/v2/latest json formatı değişmiş olabilir.');
         }
         else
             return $this->log('freecurrencyapi.net/api/v2/latest sayfasına bağlanılamıyor.');
@@ -180,7 +180,7 @@ class Api
                     return $data;
                 }
                 else
-                    return $this->log('bigpara.hurriyet.com.tr/altin/ sayfasındaki json formatı geçersiz.');
+                    return $this->log('bigpara.hurriyet.com.tr/altin/ json formatı geçersiz.');
             }
             else
                 return $this->log('bigpara.hurriyet.com.tr/altin/ sayfasının yapısı değişmiş olabilir.');
@@ -250,7 +250,7 @@ class Api
                 return $lines;
             }
             else
-                return $this->log('koeri.boun.edu.tr sayfasındaki dom formatı değişmiş olabilir.');
+                return $this->log('koeri.boun.edu.tr dom formatı değişmiş olabilir.');
         }
         else
             return $this->log('koeri.boun.edu.tr sayfasına bağlanılamıyor.');
@@ -397,6 +397,41 @@ class Api
         }
         else
             return $this->log('covid19.saglik.gov.tr sayfasına bağlanılamıyor.');
+    }
+
+    /**
+     * gazeteoku.com'da yayınlanan gazetelerin
+     * ilk sayfalarını alır.
+     * 
+     * @param string $date yyyy-mm-dd
+     * @return array
+     */
+    public function newspapers(string $date)
+    {
+        $http = Http::get("https://www.gazeteoku.com/gazeteler?date=$date");
+
+        if ($http->successful())
+        {
+            $saw = Nokogiri::fromHtml($http->body());
+            $items = $saw->get('.newspapers > .row > div > a:first-child')->toArray();
+
+            if (count($items))
+            {
+                $data = array_map(function($item) {
+                    return [
+                        'name' => $item['title'],
+                        'image_src' => 'https://i.gazeteoku.com/storage/'.Str::after($item['img'][0]['data-src'], 'storage'),
+                        'source' => $item['href']
+                    ];
+                }, $items);
+
+                return $data;
+            }
+            else
+                return $this->log('gazeteoku.com dom formatı değişmiş olabilir.');
+        }
+        else
+            return $this->log('gazeteoku.com sayfasına bağlanılamıyor.');
     }
 
     /**
