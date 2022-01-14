@@ -3,11 +3,12 @@
 ## Bu kütüphanede **Turkey** için geçerli bazı veri servisleri vardır.
 
 ## İçerdiği servisler (1.0.0)
-| Servis Adı    | Kaynak                  | Api?  | Key gereksinimi |
-|---------------|-------------------------|-------|-----------------|
-| Döviz kuru    | freecurrencyapi.net     | Evet  | Evet            |
-| Altın kuru    | bigpara.hurriyet.com.tr | Hayır | Hayır           |
-| Deprem verisi | koeri.boun.edu.tr       | Hayır | Hayır           |
+| Servis Adı      | Kaynak                        | Api?  | Key gerekiyor?   |
+|-----------------|-------------------------------|-------|------------------|
+| Döviz kuru      | freecurrencyapi.net           | Evet  | Evet             |
+| Altın kuru      | bigpara.hurriyet.com.tr       | Hayır | Hayır            |
+| Deprem verisi   | koeri.boun.edu.tr             | Hayır | Hayır            |
+| Namaz vakitleri | namazvakitleri.diyanet.gov.tr | Hayır | Hayır            |
 
 `Bu servislere sürekli istek atmanız durumunda ip engeli veya istek limitiyle karşılaşabilirsiniz. Bu nedenle bir görev zamanlayarak mümkün olduğunca az sayıda istek gönderin. Zamanladığınız görevin elde ettiği verileri bir yerde saklayarak kullanıcılarınıza kendi veri tabanınızdan servis edin.`
 
@@ -131,4 +132,41 @@ FREECURRENCYAPI_APIKEY=
         )
     ...
 
+</pre>
+
+### Deprem verisi
+<pre>
+    use Etsetra\Services\Api;
+
+    /**
+     * Adını girdiğiniz şehrin gelecek 30 günlük ezan vakitlerini getirir.
+     * Parametre boş kalırsa tüm şehirleri getirir. (Biraz zaman alabilir.)
+     */
+    $ezan = (new Api)->ezan('Ankara');
+
+    Array
+    (
+        [Ankara] => Array
+            (
+                [2022-01-14] => Array
+                    (
+                        [İmsak] => 06:33
+                        [Güneş] => 08:02
+                        [Öğle] => 13:02
+                        [İkindi] => 15:31
+                        [Akşam] => 17:53
+                        [Yatsı] => 19:16
+                    )
+                [2022-01-15] => Array
+                    (
+                        [İmsak] => 06:33
+                        [Güneş] => 08:02
+                        [Öğle] => 13:03
+                        [İkindi] => 15:32
+                        [Akşam] => 17:54
+                        [Yatsı] => 19:17
+                    )
+                ...
+            )
+    )
 </pre>
