@@ -18,13 +18,21 @@
 1. Aşağıdaki kodu **config/services.php** dosyasına ekleyin
 <pre>
 'freecurrencyapi' => [
-    'apikey' => env('FREECURRENCYAPI_APIKEY')
+    'api_key' => env('FREECURRENCYAPI_API_KEY')
+],
+
+'openweathermap' => [
+    'api_key' => env('OPENWEATHERMAP_API_KEY')
 ],
 </pre>
 
-2. **freecurrenkapi.net** üzerinden bir api key alın
+2. a. **freecurrenkapi.net** üzerinden bir api key alın ve .env dosyasına ekleyin
 <pre>
-FREECURRENCYAPI_APIKEY=
+FREECURRENCYAPI_API_KEY=
+</pre>
+2. b. **openweathermap.org** üzerinden bir api key alın ve .env dosyasına ekleyin
+<pre>
+OPENWEATHERMAP_API_KEY=
 </pre>
 
 3. Problem mesajları için gerekli loglar **storage/logs/services.log** dosyasına yazılır. Bunun için **config/logging.php** dosyasındaki **channels** dizesinin altına şu kodu ekleyin
@@ -134,13 +142,16 @@ FREECURRENCYAPI_APIKEY=
 
 </pre>
 
-### Deprem verisi
+### Ezan vakitleri
 <pre>
     use Etsetra\Services\Api;
 
     /**
-     * Adını girdiğiniz şehrin gelecek 30 günlük ezan vakitlerini getirir.
-     * Parametre boş kalırsa tüm şehirleri getirir. (Biraz zaman alabilir.)
+     * - Adını girdiğiniz şehrin gelecek
+     * 30 günlük ezan vakitlerini verir.
+     *
+     * - Parametre boş kalırsa tüm
+     * şehirleri verir. (Bu işlem yaklaşık 1 dakika sürer)
      */
     $ezan = (new Api)->ezan('Ankara');
 
@@ -168,5 +179,85 @@ FREECURRENCYAPI_APIKEY=
                     )
                 ...
             )
+    )
+</pre>
+
+### Hava durumu
+<pre>
+    use Etsetra\Services\Api;
+
+    /**
+     * - Adını girdiğiniz şehrin o güne
+     * ait hava durumunu verir.
+     *
+     * - Parametre boş kalırsa tüm
+     * şehirleri verir. (Bu işlem yaklaşık 1 dakika sürer)
+     */
+    $weather = (new Api)->weather('Ankara');
+
+    Array
+    (
+        [Ankara] => Array
+            (
+                [coord] => Array
+                    (
+                        [lon] => 32.8543
+                        [lat] => 39.9199
+                    )
+
+                [weather] => Array
+                    (
+                        [0] => Array
+                            (
+                                [id] => 800
+                                [main] => Clear
+                                [description] => clear sky
+                                [icon] => 01n
+                            )
+
+                    )
+
+                [base] => stations
+                [main] => Array
+                    (
+                        [temp] => 268.66
+                        [feels_like] => 266.22
+                        [temp_min] => 268.66
+                        [temp_max] => 268.66
+                        [pressure] => 1019
+                        [humidity] => 56
+                        [sea_level] => 1019
+                        [grnd_level] => 913
+                    )
+
+                [visibility] => 10000
+                [wind] => Array
+                    (
+                        [speed] => 1.53
+                        [deg] => 238
+                        [gust] => 1.79
+                    )
+
+                [clouds] => Array
+                    (
+                        [all] => 6
+                    )
+
+                [dt] => 1642193630
+                [sys] => Array
+                    (
+                        [type] => 1
+                        [id] => 6947
+                        [country] => TR
+                        [sunrise] => 1642136922
+                        [sunset] => 1642171557
+                    )
+
+                [timezone] => 10800
+                [id] => 323786
+                [name] => Ankara
+                [cod] => 200
+            )
+        ...
     )
 </pre>

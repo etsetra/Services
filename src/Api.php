@@ -115,7 +115,7 @@ class Api
      */
     public function currency(array $symbols)
     {
-        $http = Http::get('https://freecurrencyapi.net/api/v2/latest?apikey='.config('services.freecurrencyapi.apikey').'&base_currency=try');
+        $http = Http::get('https://freecurrencyapi.net/api/v2/latest?apikey='.config('services.freecurrencyapi.api_key').'&base_currency=try');
 
         if ($http->successful())
         {
@@ -278,11 +278,11 @@ class Api
 
         foreach ($this->cities as $code => $city)
         {
-            $response = Http::get("https://namazvakitleri.diyanet.gov.tr/tr-TR/$code/xxx");
+            $http = Http::get("https://namazvakitleri.diyanet.gov.tr/tr-TR/$code/xxx");
 
-            if ($response->successful())
+            if ($http->successful())
             {
-                $saw = Nokogiri::fromHtml($response->body());
+                $saw = Nokogiri::fromHtml($http->body());
                 $table = $saw->get('#tab-1 .vakit-table')->toArray();
 
                 $tds = data_get($table, '*.tbody.*.tr.*.td');
@@ -311,7 +311,37 @@ class Api
                 }
             }
             else
-                $this->log("namazvakitleri.diyanet.gov.tr adresine bağlanılamadı. ($city)");
+                $data[$city] = $this->log("namazvakitleri.diyanet.gov.tr adresine bağlanılamadı. ($city)");
+        }
+
+        return $data;
+    }
+
+    /**
+     * OpenWeatherMap apilerinden hava durumu bilgisi alır.
+     * 
+     * @param string $city
+     * @return array
+     */
+    public function weather(string $city = null)
+    {
+        if ($city)
+        {
+            $this->cities = array_filter(
+                $this->cities,
+                function ($e) use ($city) {
+                    return $e == $city;
+                }
+            );
+        }
+
+        $data = [];
+
+        foreach ($this->cities as $code => $city)
+        {
+            $http = Http::get('https://api.openweathermap.org/data/2.5/weather?q='.$city.'&appid='.config('services.openweathermap.api_key'));
+
+            $data[$city] = $http->successful() ? (@$http->json() ?? $this->log("Json formatı geçerli değil. ($city)")) : $this->log("Api bağlantısı kurulamadı. ($city)");
         }
 
         return $data;
