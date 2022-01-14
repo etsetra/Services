@@ -317,14 +317,14 @@ OPENWEATHERMAP_API_KEY=
         [0] => Array
             (
                 [name] => Cumhuriyet
-                [image_src] => https://i.gazeteoku.com/storage//files/images/2022/01/15/cumhuriyet-2022-01-15-VrdZ.jpg
+                [image_src] => https://i.gazeteoku.com/storage/files/images/2022/01/15/cumhuriyet-2022-01-15-VrdZ.jpg
                 [link] => https://www.gazeteoku.com/gazeteler/2022-01-15/cumhuriyet-gazetesi-manseti
             )
 
         [1] => Array
             (
                 [name] => Yeni Şafak
-                [image_src] => https://i.gazeteoku.com/storage//files/images/2022/01/15/yeni-safak-2022-01-15-YpiB.jpg
+                [image_src] => https://i.gazeteoku.com/storage/files/images/2022/01/15/yeni-safak-2022-01-15-YpiB.jpg
                 [link] => https://www.gazeteoku.com/gazeteler/2022-01-15/yeni-safak-gazetesi-manseti
             )
         ...
