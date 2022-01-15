@@ -123,8 +123,10 @@ class Api
             {
                 $data = Arr::where($data, function ($value, $key) use ($symbols) { return Str::contains($key, $symbols); });
 
-                if ($btc = @$symbols['BTC'])
-                    $data['BTC'] = $btc / 1000;
+                if (in_array('BTC', $symbols))
+                {
+                    $data['BTC'] = $data['BTC'] / 1000;
+                }
 
                 $data = array_map(function($price) { return round(1 / $price, 2); }, $data);
 
